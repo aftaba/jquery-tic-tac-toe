@@ -4,20 +4,22 @@
 	<title>Tic Tac Toe</title>
 	<style type="text/css">
 		body{
-			position: absolute;
+			position: center;
 		}
 		.box-wrapper{
 			left : 240px;
-			top: 240px;
-			margin: 0 auto;
+			top: 200px;
+			margin: 50px;
+
 		}
 		.row{
-			margin: 2px;
+			margin: 10px;
+			padding: 10px;
 		}
 		.box{
 			width: 100px;
 			height: 100px;
-			border: 1px solid yellow;
+			border: 50px solid yellow;
 			/*
 			change black to yellow
 			*/
@@ -33,160 +35,152 @@
 		    vertical-align: middle;
 		}
 	</style>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-	<div class="box-wrapper">
-		<div class="row">
-			<div class="box box00" data-x="0" data-y="0"></div>
-			<div class="box box01" data-x="0" data-y="1"></div>
-			<div class="box box02" data-x="0" data-y="2"></div>
-		</div>
-		<div class="row">
-			<div class="box box10" data-x="1" data-y="0"></div>
-			<div class="box box11" data-x="1" data-y="1"></div>
-			<div class="box box12" data-x="1" data-y="2"></div>
-		</div>
-		<div class="row">
-			<div class="box box20" data-x="2" data-y="0"></div>
-			<div class="box box21" data-x="2" data-y="1"></div>
-			<div class="box box22" data-x="2" data-y="2"></div>
-		</div>
+<div class="box-wrapper">
+	<div class="row">
+		<div class="box box00" data-x="0" data-y="0"></div>
+		<div class="box box01" data-x="0" data-y="1"></div>
+		<div class="box box02" data-x="0" data-y="2"></div>
 	</div>
-	<div></div>
-	<div class="position">
+	<div class="row">
+		<div class="box box10" data-x="1" data-y="0"></div>
+		<div class="box box11" data-x="1" data-y="1"></div>
+		<div class="box box12" data-x="1" data-y="2"></div>
 	</div>
-	
-	<script type="text/javascript">
-		$(document).ready( function(){
-			
-			var user= "1", computer="O"; 
-			//changed x to 1
-			var box = [
-				["1","1","1"],
-				["1","1","1"],
-				["1","1","1"],
-			];
-			
-			$('.box').click( function(){
-				runUser( $(this), function(){
-					// check if game ends
-					if( ! isGameEnd() ) {
-						runComputer();
-					} else {
-						$('.position').append('<p>Game End</p>');
-					}
-	
-				} );
-			});
-			// checking if the game ends
-			function isGameEnd(){
-				count = 0;
-				for(i=0;i<3;i++){
-					for(j=0;j<3;j++){
-						if( box[i][j] == "1" ) {
-							count++;
-						}
-					}
-				}
-				if ( count == 0 ) {
-					return true;
+	<div class="row">
+		<div class="box box20" data-x="2" data-y="0"></div>
+		<div class="box box21" data-x="2" data-y="1"></div>
+		<div class="box box22" data-x="2" data-y="2"></div>
+	</div>
+</div>
+<div></div>
+<div class="position">
+</div>
+
+<script type="text/javascript">
+	$(document).ready( function(){
+		var user= "X", computer="O"; 
+		var box = [
+			["1","1","1"],
+			["1","1","1"],
+			["1","1","1"],
+		];
+		
+		$('.box').click( function(){
+			runUser( $(this), function(){
+				// check if game ends
+				if( ! isGameEnd() ) {
+					runComputer();
 				} else {
-					return false;
-				}
-			}
-
-			function runUser( $user, callback ) {
-				x = parseInt($user.data('x'));
-				y = parseInt($user.data('y'));
-				if ( "1" == box[x][y] ) {
-					box[x][y] = user;
-					className = "box"+x+y;
-					$('.'+className).html(user);
-					$('.position').append('<p>User clicked :'+x+','+y+'</p>');
-					checkIfWins();
-					callback();
-				} else {
-					alert("This is already used");
-				}
-			}
-
-			function runComputer() {
-				loop = true;
-				var x,y;
-				while( loop ) {
-					x = getRandomNumber();
-					y = getRandomNumber();
-					if ( box[x][y] == "1" ) {
-						break;
-					}
-				}
-				box[x][y] = computer;
-				className = "box"+x+y;
-				$('.'+className).html(computer);
-				$('.position').append('<p>Computer clicked :'+x+','+y+'</p>');
-				checkIfWins();
-			}
-
-			function checkIfWins() {
-				var win ;
-				if ( box[0][0] == "X" && box[0][1] == "X" && box[0][2] == "X" ) {
-					win = "X";
-				} else if ( box[1][0] == "X" && box[1][1] == "X" && box[1][2] == "X" ) {
-					win = "X";
-				} else if ( box[2][0] == "X" && box[2][1] == "X" && box[2][2] == "X" ) {
-					win = "X";
-				} else if ( box[0][0] == "X" && box[1][0] == "X" && box[2][0] == "X" ) {
-					win = "X";
-				} else if ( box[0][1] == "X" && box[1][1] == "X" && box[2][1] == "X" ) {
-					win = "X";
-				} else if ( box[0][2] == "X" && box[1][2] == "X" && box[2][2] == "X" ) {
-					win = "X";
-				} else if ( box[0][0] == "X" && box[1][1] == "X" && box[2][2] == "X" ) {
-					win = "X";
-				} else if ( box[0][2] == "X" && box[1][2] == "X" && box[2][0] == "X" ) {
-					win = "X";
+					$('.position').append('<p>Game End</p>');
 				}
 
-				if ( box[0][0] == "O" && box[0][1] == "O" && box[0][2] == "O" ) {
-					win = "O";
-				} else if ( box[1][0] == "O" && box[1][1] == "O" && box[1][2] == "O" ) {
-					win = "O";
-				} else if ( box[2][0] == "O" && box[2][1] == "O" && box[2][2] == "O" ) {
-					win = "O";
-				} else if ( box[0][0] == "O" && box[1][0] == "O" && box[2][0] == "O" ) {
-					win = "O";
-				} else if ( box[0][1] == "O" && box[1][1] == "O" && box[2][1] == "O" ) {
-					win = "O";
-				} else if ( box[0][2] == "O" && box[1][2] == "O" && box[2][2] == "O" ) {
-					win = "O";
-				} else if ( box[0][0] == "O" && box[1][1] == "O" && box[2][2] == "O" ) {
-					win = "O";
-				} else if ( box[0][2] == "O" && box[1][2] == "O" && box[2][0] == "O" ) {
-					win = "O";
-				}
-
-				if ( win == "O" ) {
-					alert("Computers Win");
-					throw new Error("");
-				} else if ( win == "X" ) {
-					alert( "You Win");
-					throw new Error("");
-					return false;
-				} else {
-					return true;
-				}
-
-			}
+			} );
 		});
-
-		function getRandomNumber() {
-			min = 0;
-			max = 3;
-		    return Math.floor( Math.random() * (max - min) + min );
+		// checking if the game ends
+		function isGameEnd(){
+			count = 0;
+			for(i=0;i<3;i++){
+				for(j=0;j<3;j++){
+					if( box[i][j] == "1" ) {
+						count++;
+					}
+				}
+			}
+			if ( count == 0 ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
-			
-	</script>
-	
+		function runUser( $user, callback ) {
+			x = parseInt($user.data('x'));
+			y = parseInt($user.data('y'));
+			if ( "1" == box[x][y] ) {
+				box[x][y] = user;
+				className = "box"+x+y;
+				$('.'+className).html(user);
+				$('.position').append('<p>User clicked :'+x+','+y+'</p>');
+				checkIfWins();
+				callback();
+			} else {
+				alert("This is already used");
+			}
+		}
+		function runComputer() {
+			loop = true;
+			var x,y;
+			while( loop ) {
+				x = getRandomNumber();
+				y = getRandomNumber();
+				if ( box[x][y] == "1" ) {
+					break;
+				}
+			}
+			box[x][y] = computer;
+			className = "box"+x+y;
+			$('.'+className).html(computer);
+			$('.position').append('<p>Computer clicked :'+x+','+y+'</p>');
+			checkIfWins();
+		}
+		function checkIfWins() {
+			var win ;
+			if ( box[0][0] == "X" && box[0][1] == "X" && box[0][2] == "X" ) {
+				win = "X";
+			} else if ( box[1][0] == "X" && box[1][1] == "X" && box[1][2] == "X" ) {
+				win = "X";
+			} else if ( box[2][0] == "X" && box[2][1] == "X" && box[2][2] == "X" ) {
+				win = "X";
+			} else if ( box[0][0] == "X" && box[1][0] == "X" && box[2][0] == "X" ) {
+				win = "X";
+			} else if ( box[0][1] == "X" && box[1][1] == "X" && box[2][1] == "X" ) {
+				win = "X";
+			} else if ( box[0][2] == "X" && box[1][2] == "X" && box[2][2] == "X" ) {
+				win = "X";
+			} else if ( box[0][0] == "X" && box[1][1] == "X" && box[2][2] == "X" ) {
+				win = "X";
+			} else if ( box[0][2] == "X" && box[1][2] == "X" && box[2][0] == "X" ) {
+				win = "X";
+			}
+			if ( box[0][0] == "O" && box[0][1] == "O" && box[0][2] == "O" ) {
+				win = "O";
+			} else if ( box[1][0] == "O" && box[1][1] == "O" && box[1][2] == "O" ) {
+				win = "O";
+			} else if ( box[2][0] == "O" && box[2][1] == "O" && box[2][2] == "O" ) {
+				win = "O";
+			} else if ( box[0][0] == "O" && box[1][0] == "O" && box[2][0] == "O" ) {
+				win = "O";
+			} else if ( box[0][1] == "O" && box[1][1] == "O" && box[2][1] == "O" ) {
+				win = "O";
+			} else if ( box[0][2] == "O" && box[1][2] == "O" && box[2][2] == "O" ) {
+				win = "O";
+			} else if ( box[0][0] == "O" && box[1][1] == "O" && box[2][2] == "O" ) {
+				win = "O";
+			} else if ( box[0][2] == "O" && box[1][2] == "O" && box[2][0] == "O" ) {
+				win = "O";
+			}
+			if ( win == "O" ) {
+				alert("Computers Win");
+				throw new Error("");
+			} else if ( win == "X" ) {
+				alert( "You Win");
+				throw new Error("");
+				return false;
+			} else {
+				return true;
+			}
+		}
+	});
+	function getRandomNumber() {
+		min = 0;
+		max = 3;
+		return Math.floor( Math.random() * (max - min) + min );
+	}
+		
+</script>
+
 </body>
 </html>
