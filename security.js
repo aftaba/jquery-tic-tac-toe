@@ -17,3 +17,5 @@ do
 done < "$input"
 echo "    <name>EmailTemplate</name>" >> package_temp.xml
 echo "  </types>" >> package_temp.xml
+
+echo "shreya"
