@@ -47,7 +47,9 @@
 			<div class="box box22" data-x="2" data-y="2"></div>
 		</div>
 	</div>
+	
 	<div></div>
+	
 	<div class="position">
 	</div>
 	
@@ -71,9 +73,11 @@
 	
 				} );
 			});
+			
 			// checking if the game ends
 			function isGameEnd(){
 				count = 0;
+				
 				for(i=0;i<3;i++){
 					for(j=0;j<3;j++){
 						if( box[i][j] == "1" ) {
@@ -81,6 +85,7 @@
 						}
 					}
 				}
+				
 				if ( count == 0 ) {
 					return true;
 				} else {
@@ -91,6 +96,7 @@
 			function runUser( $user, callback ) {
 				x = parseInt($user.data('x'));
 				y = parseInt($user.data('y'));
+				
 				if ( "1" == box[x][y] ) {
 					box[x][y] = user;
 					className = "box"+x+y;
@@ -106,6 +112,7 @@
 			function runComputer() {
 				loop = true;
 				var x,y;
+				
 				while( loop ) {
 					x = getRandomNumber();
 					y = getRandomNumber();
@@ -122,6 +129,7 @@
 
 			function checkIfWins() {
 				var win ;
+				
 				if ( box[0][0] == "X" && box[0][1] == "X" && box[0][2] == "X" ) {
 					win = "X";
 				} else if ( box[1][0] == "X" && box[1][1] == "X" && box[1][2] == "X" ) {
